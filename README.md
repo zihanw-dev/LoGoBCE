@@ -11,8 +11,8 @@ LoGoBCE_open_source/
 |-- code/
 |   |-- CVAE.py
 |   |-- ESM2.py
-|   |-- cvae_parameter.pth
-|   `-- LoGoBCE_parameter.pth
+|   |-- LoGoBCE_parameter.pth
+|   `-- cvae_parameter.pth        # download from GitHub Releases
 |-- data/
 |   |-- LoGoBCE_train.csv
 |   |-- LoGoBCE_independent_test.csv
@@ -47,6 +47,28 @@ The response-frequency files contain the original residue-level labels:
 - `Response_frequency`: observed response frequency. Missing values are left blank.
 
 The independent test IDs are the fixed test set used by the LoGoBCE training script. The CVAE pre-training corpus is not included.
+
+## Model Weights
+
+The LoGoBCE residue-level model weight file `code/LoGoBCE_parameter.pth` is included in this repository.
+
+The pre-trained CVAE weight file `cvae_parameter.pth` is large, so it is distributed as a GitHub Release asset instead of being tracked directly in the repository. Download it from:
+
+```text
+https://github.com/zihanw-dev/LoGoBCE/releases/tag/v1.0.0
+```
+
+After downloading, place the file at:
+
+```text
+code/cvae_parameter.pth
+```
+
+For command-line download, use:
+
+```bash
+wget -O code/cvae_parameter.pth https://github.com/zihanw-dev/LoGoBCE/releases/download/v1.0.0/cvae_parameter.pth
+```
 
 ## Environment
 
@@ -107,6 +129,7 @@ Run CVAE inference first to generate the global latent features:
 
 ```bash
 cd code
+# Make sure cvae_parameter.pth has been downloaded from the v1.0.0 release.
 python CVAE.py \
   --input-csv ../data/LoGoBCE_independent_test.csv \
   --output-tsv latent_space_embeddings.tsv \
