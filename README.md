@@ -72,17 +72,15 @@ wget -O code/cvae_parameter.pth https://github.com/zihanw-dev/LoGoBCE/releases/d
 
 ## Environment
 
-The released parameters were produced with two inference/training environments. The commands below document the environment used for the CVAE stage and the package versions used for the LoGoBCE stage.
+The workflow uses two lightweight conda environments: one for generating CVAE global embeddings and one for LoGoBCE residue-level inference. The commands below use public package indexes and the standard Hugging Face endpoint.
 
 ### CVAE Environment
 
 ```bash
-mamba create -n esm2 python=3.10 pytorch=1.12.1 torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
-conda activate esm2
+mamba create -n cvae python=3.10 pytorch=1.12.1 torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+conda activate cvae
 mamba install pandas ipykernel tqdm
-pip install --force-reinstall transformers==4.25.1 sentence-transformers==2.2.2 -i https://pypi.tuna.tsinghua.edu.cn/simple
-pip install --force-reinstall huggingface-hub==0.19.4 -i https://pypi.tuna.tsinghua.edu.cn/simple
-export HF_ENDPOINT=https://hf-mirror.com
+pip install transformers==4.25.1 sentence-transformers==2.2.2 huggingface-hub==0.19.4
 huggingface-cli download facebook/esm2_t12_35M_UR50D --local-dir ./esm2_local
 huggingface-cli download sentence-transformers/all-MiniLM-L6-v2 --local-dir ./minilm_local
 ```
@@ -91,14 +89,13 @@ The ESM-2 model used by the scripts is `facebook/esm2_t12_35M_UR50D`.
 
 ### LoGoBCE Environment
 
-LoGoBCE residue-level inference was run in a conda environment named `wzh_fix` with:
+```bash
+mamba create -n logobce python=3.8.18 pytorch=1.12.1 torchvision torchaudio -c pytorch
+conda activate logobce
+pip install -r requirements.txt
+```
 
-- OS/platform: Linux x86_64, CentOS 7.9, glibc 2.17
-- Conda: 23.9.0
-- Python: 3.8.18
-- Visible CUDA virtual package: `__cuda=12.4`
-
-Core package versions:
+The original LoGoBCE residue-level experiments were run on Linux x86_64 with Conda 23.9.0, Python 3.8.18, and the following core package versions:
 
 ```text
 numpy                  1.26.4
@@ -117,11 +114,8 @@ scipy                  1.15.3
 requests               2.32.5
 ```
 
-For a compact inference setup, install PyTorch through conda/mamba first, then install the Python dependencies:
+If you use a CUDA-enabled GPU, install the PyTorch build that matches your local CUDA driver before running `pip install -r requirements.txt`.
 
-```bash
-pip install -r requirements.txt
-```
 
 ## Inference
 
