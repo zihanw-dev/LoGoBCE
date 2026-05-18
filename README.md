@@ -15,7 +15,9 @@ LoGoBCE_open_source/
 |   `-- LoGoBCE_parameter.pth
 |-- data/
 |   |-- LoGoBCE_train.csv
-|   `-- LoGoBCE_independent_test.csv
+|   |-- LoGoBCE_independent_test.csv
+|   |-- LoGoBCE_train_response_frequency.csv
+|   `-- LoGoBCE_independent_test_response_frequency.csv
 `-- scripts/
     `-- build_open_dataset.py
 ```
@@ -26,12 +28,23 @@ The open LoGoBCE dataset is split into:
 
 - `data/LoGoBCE_train.csv`
 - `data/LoGoBCE_independent_test.csv`
+- `data/LoGoBCE_train_response_frequency.csv`
+- `data/LoGoBCE_independent_test_response_frequency.csv`
 
-Each file contains three columns:
+The sequence-level train/test files contain three columns:
 
 - `ID`: UniProt accession.
 - `Sequence`: antigen amino-acid sequence.
 - `Protein_family`: UniProt protein family annotation. Empty UniProt values are recorded as `Unknown`.
+
+The response-frequency files contain the original residue-level labels:
+
+- `ID`: UniProt accession.
+- `Position`: one-based residue position.
+- `Amino_acid`: amino acid at the residue position.
+- `Lower_bound`: lower bound from the original epitope curve.
+- `Upper_bound`: upper bound from the original epitope curve.
+- `Response_frequency`: observed response frequency. Missing values are left blank.
 
 The independent test IDs are the fixed test set used by the LoGoBCE training script. The CVAE pre-training corpus is not included.
 
