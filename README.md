@@ -74,29 +74,12 @@ wget -O code/cvae_parameter.pth https://github.com/zihanw-dev/LoGoBCE/releases/d
 
 The environment follows the LoGoBCE v1.0.0 reproducibility package: Python 3.10, pip 24.2, PyTorch 1.12.1, and torchvision 0.13.1 with CUDA 11.6. Linux with an NVIDIA GPU is recommended. CVAE global embedding generation and LoGoBCE residue-level inference use the same `logobce` conda environment.
 
-Run the following commands from the repository root. The installation command explicitly pins all dependencies to the v1.0.0 versions; the standalone `requirements.txt` currently contains different versions of some packages.
+Run the following commands from the repository root. All Python dependencies are pinned in `requirements.txt` to match the v1.0.0 environment, including the CUDA 11.6 PyTorch wheels and their official package index.
 
 ```bash
 conda create -n logobce -c defaults python=3.10 pip=24.2
 conda activate logobce
-python -m pip install --extra-index-url https://download.pytorch.org/whl/cu116 \
-  torch==1.12.1+cu116 \
-  torchvision==0.13.1+cu116 \
-  numpy==1.26.4 \
-  pandas==2.2.3 \
-  scipy==1.13.1 \
-  scikit-learn==1.5.2 \
-  matplotlib==3.9.2 \
-  tqdm==4.67.1 \
-  requests==2.32.3 \
-  transformers==4.25.1 \
-  sentence-transformers==2.2.2 \
-  Pillow==10.4.0 \
-  sentencepiece==0.1.99 \
-  nltk==3.9.1 \
-  huggingface-hub==0.19.4 \
-  tokenizers==0.13.3 \
-  safetensors==0.4.5
+python -m pip install -r requirements.txt
 python -m pip check
 ```
 
