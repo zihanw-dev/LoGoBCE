@@ -73,7 +73,7 @@ wget -O code/cvae_parameter.pth https://github.com/zihanw-dev/LoGoBCE/releases/d
 
 ## Environment
 
-The environment is identical to the LoGoBCE v1.0.0 reproducibility package: Python 3.10, pip 24.2, `torch==1.12.1+cu116`, and `torchvision==0.13.1+cu116`. Linux with an NVIDIA GPU is recommended. CVAE global embedding generation and LoGoBCE residue-level inference use the same `logobce` conda environment.
+The recommended environment for running the released LoGoBCE models uses Python 3.10, pip 24.2, `torch==1.12.1+cu116`, and `torchvision==0.13.1+cu116`. Linux x86_64 with an NVIDIA GPU and a driver compatible with CUDA 11.6 is recommended. CVAE global embedding generation and LoGoBCE residue-level inference use the same `logobce` conda environment.
 
 Run the following commands from the repository root. `environment.yml` creates the environment and installs all pinned Python dependencies. Its package versions and CUDA 11.6 PyTorch index match `requirements.txt`.
 
