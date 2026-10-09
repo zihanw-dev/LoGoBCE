@@ -7,7 +7,8 @@ LoGoBCE is a local-global framework for linear B-cell epitope prediction. This r
 ```text
 LoGoBCE_open_source/
 |-- README.md
-|-- requirements.txt
+|-- environment.yml            # recommended single GPU environment
+|-- requirements.txt           # fully pinned pip dependencies
 |-- code/
 |   |-- CVAE.py
 |   |-- ESM2.py
@@ -72,14 +73,13 @@ wget -O code/cvae_parameter.pth https://github.com/zihanw-dev/LoGoBCE/releases/d
 
 ## Environment
 
-The environment follows the LoGoBCE v1.0.0 reproducibility package: Python 3.10, pip 24.2, PyTorch 1.12.1, and torchvision 0.13.1 with CUDA 11.6. Linux with an NVIDIA GPU is recommended. CVAE global embedding generation and LoGoBCE residue-level inference use the same `logobce` conda environment.
+The environment is identical to the LoGoBCE v1.0.0 reproducibility package: Python 3.10, pip 24.2, `torch==1.12.1+cu116`, and `torchvision==0.13.1+cu116`. Linux with an NVIDIA GPU is recommended. CVAE global embedding generation and LoGoBCE residue-level inference use the same `logobce` conda environment.
 
-Run the following commands from the repository root. All Python dependencies are pinned in `requirements.txt` to match the v1.0.0 environment, including the CUDA 11.6 PyTorch wheels and their official package index.
+Run the following commands from the repository root. `environment.yml` creates the environment and installs all pinned Python dependencies. Its package versions and CUDA 11.6 PyTorch index match `requirements.txt`.
 
 ```bash
-conda create -n logobce -c defaults python=3.10 pip=24.2
+conda env create -f environment.yml
 conda activate logobce
-python -m pip install -r requirements.txt
 python -m pip check
 ```
 
@@ -104,7 +104,7 @@ For offline inference, download both models beforehand and use their local direc
 
 ## Inference
 
-Run CVAE inference first to generate the global latent features:
+Keep the `logobce` environment active for both inference steps. Run CVAE inference first to generate the global latent features:
 
 ```bash
 cd code
